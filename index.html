@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="https://api.fontshare.com/v2/css?f[]=excon@400,700,500&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="./style.css">
+   <title>Expense Tracker</title>
+</head>
+
+<body>
+
+   <header class="header">
+      <img class="logo" src="./assets/logo.svg" alt="Logo image">
+   </header>
+
+   <main>
+      <div class="callout">
+         <div class="callout__hide-icon">
+            <img src="./assets/cross-icon-small.svg" alt="Hide icon">
+         </div>
+         <h2 class="callout__title">Easy finance-tracking</h2>
+         <p class="callout__copy">
+            EXPENSER® is a tool to track your spendings and see them in an organized way. Group spendings into categories, see statistics about them and know what they total to.
+         </p>
+      </div>
+
+      <div class="flex jc-space-between ai-center">
+         <div>
+            <h1 class="title">Expense history</h1>
+            <p>All expenses will show down bellow in a list</p>
+         </div>
+         <button class="btn btn--primary">Add transaction<img class="plus-icon" src="./assets/plus-icon.svg"></button>
+      </div>
+
+      <section>
+         <p class="empty-message">No transactions have been added</p>
+      </section>
+   </main>
+
+   <footer>
+
+      <button class="btn btn--secondary">
+         See statistics
+         <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.5 2L20 9.5L12.5 17" stroke="white" stroke-width="2.5" stroke-linecap="square" />
+            <path d="M2 2L9.5 9.5L2 17" stroke="white" stroke-width="2.5" stroke-linecap="square" />
+         </svg>
+      </button>
+
+      <!--
+         
+      <section class="statistics">
+         <div class="statistics__empty">
+            <div class="chevrons-left-icon">
+               <img src="./assets/chevrons-left-icon.svg" alt="">
+            </div>
+
+            <img class="empty-icon" src="./assets/empty-icon.svg">
+            <div>
+               <h2 class="title">No categories yet</h2>
+               <p>Add categories when adding expenses</p>
+            </div>
+         </div>
+      </section>
+   
+      -->
+
+      <div class="total">
+         <h2 class="total__title">Total expenses</h2>
+         <p class="total__amount" id="total-expenses">$0</p>
+      </div>
+   </footer>
+
+</body>
+
+</html>
