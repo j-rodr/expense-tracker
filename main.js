@@ -3,6 +3,8 @@ let statsToggles = document.querySelectorAll(".statistics-toggle")
 let statToggleBtn = document.querySelector(".btn.statistics-toggle")
 let callout = document.querySelector(".callout")
 let hideCalloutBtn = document.getElementById("hide-callout")
+let expensesSection = document.getElementById("expenses-section")
+let expenseCards = document.querySelectorAll(".expense")
 
 statsToggles.forEach(toggle => {
    toggle.addEventListener("click", function () {
@@ -28,3 +30,5 @@ hideCalloutBtn.addEventListener("click", () => {
       callout.classList.add("is-hidden")
    })
 })
+
+
