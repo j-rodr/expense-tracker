@@ -39,6 +39,7 @@ body {
    line-height: 1.55;
    background-color: var(--clr-black-5);
    color: var(--clr-white);
+   overflow-x: hidden;
 }
 
 main {
@@ -75,6 +76,7 @@ footer {
    bottom: 0;
    display: flex;
    justify-content: space-between;
+   align-items: end;
 }
 
 footer svg {
@@ -95,10 +97,10 @@ footer .btn--secondary {
    background-color: var(--clr-black-4);
 }
 
-.chevrons-left-icon {
+.statistics .chevrons-left-icon {
    position: absolute;
-   top: 16px;
-   left: calc(100% - 50px);
+   top: 10px;
+   left: calc(100% - 48px);
    display: flex;
    justify-content: center;
    align-items: center;
@@ -126,6 +128,7 @@ footer .btn--secondary {
    min-width: 200px;
    width: 30%;
    max-width: 240px;
+   max-height: 130px;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -136,7 +139,7 @@ footer .btn--secondary {
 
 .total__title {
    margin-block-end: 6px;
-   font-size: 1.8rem;
+   font-size: 1.7rem;
    font-weight: var(--fw-bold);
    color: var(--clr-purple);
 }
@@ -158,7 +161,7 @@ footer .btn--secondary {
 }
 
 .callout__title {
-   font-size: 1.8rem;
+   font-size: 1.7rem;
    color: var(--clr-purple);
    margin-block-end: 10px;
 }
@@ -169,8 +172,8 @@ footer .btn--secondary {
 
 .callout__hide-icon {
    position: absolute;
-   top: 15px;
-   left: calc(100% - 45px);
+   top: 12px;
+   left: calc(100% - 42px);
    padding: 8px;
    display: grid;
    place-items: center;
@@ -193,8 +196,8 @@ footer .btn--secondary {
    justify-content: center;
    align-items: center;
    gap: 10px;
-   padding: 10px 14px;
-   font-size: 1.5rem;
+   padding: 8px 10px;
+   font-size: 1.4rem;
    border-width: 2px;
    border-style: solid;
    border-radius: 3px;
@@ -202,7 +205,7 @@ footer .btn--secondary {
 }
 
 .btn--primary {
-   min-width: 174px;
+   min-width: 158px;
    white-space: nowrap;
    font-weight: var(--fw-medium);
    border-color: var(--clr-purple);
@@ -214,6 +217,7 @@ footer .btn--secondary {
 }
 
 .btn--secondary {
+   font-size: 1.6rem;
    border-color: var(--clr-black-4);
    color: var(--clr-white);
    background-color: var(--clr-black-4);
@@ -229,6 +233,7 @@ footer .btn--secondary {
    margin: 50px auto;
    padding: 10px 12px;
    border-radius: 3px;
+   font-size: 1.5rem;
    color: var(--clr-black-1);
    background-color: var(--clr-black-4);
 }
@@ -252,7 +257,7 @@ footer .btn--secondary {
 }
 
 .title {
-   font-size: 1.8rem;
+   font-size: 1.6rem;
    font-weight: var(--fw-bold);
    margin-block-end: 3px;
 }
@@ -267,4 +272,67 @@ footer .btn--secondary {
 
 .plus-icon {
    width: 18px;
+}
+
+/* #Animations */
+
+.fade-in {
+   animation: fadeIn 0.4s ease-in-out;
+   animation-fill-mode: both;
+}
+
+.fade-in-long {
+   animation: fadeIn 1.1s ease-in-out;
+   animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+   from {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
+   }
+}
+
+.emerge {
+   animation: emerge 0.5s ease;
+   animation-fill-mode: both;
+}
+
+@keyframes emerge {
+   from {
+      opacity: 0;
+      transform: translateY(100%);
+   }
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+.slide-left {
+   animation: slideLeft 0.8s ease-out forwards;
+}
+
+@keyframes slideLeft {
+   from {
+      transform: translateX(0);
+   }
+   to {
+      transform: translateX(100vw);
+   }
+}
+
+.fade-out {
+   animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeOut {
+   100% {
+      opacity: 0;
+   }
+   0% {
+      opacity: 1;
+   }
 }
