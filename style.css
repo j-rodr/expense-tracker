@@ -330,11 +330,11 @@ footer .btn--secondary {
    margin-block-start: 3px;
 }
 
-.expense__group:last-child {
+.expense__group:nth-child(3) {
    text-align: end;
 }
 
-.expense__group:last-child > * + * {
+.expense__group:nth-child(3) > * + * {
    margin-block-start: 1px;
 }
 
