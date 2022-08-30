@@ -4,6 +4,8 @@ let statToggleBtn = document.querySelector(".btn.statistics-toggle")
 let callout = document.querySelector(".callout")
 let hideCalloutBtn = document.getElementById("hide-callout")
 
+/* Event listeners */
+
 statsToggles.forEach(toggle => {
    toggle.addEventListener("click", function () {
       if (stats.classList.contains("is-hidden")) {

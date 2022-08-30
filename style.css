@@ -264,6 +264,11 @@ footer .btn--secondary {
    visibility: visible;
 }
 
+.expense__edit:hover,
+.expense__delete:hover {
+   background-color: var(--clr-black-3);
+}
+
 .expense__edit,
 .expense__delete {
    position: absolute;
