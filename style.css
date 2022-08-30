@@ -286,46 +286,6 @@ footer .btn--secondary {
    padding: 8px;
 }
 
-.expense__edit:hover,
-.expense__delete:hover {
-   background-color: var(--clr-black-3);
-}
-
-.expense__edit::before {
-   content: "Edit expense";
-   position: absolute;
-   top: -40px;
-   left: -40px;
-   padding: 4px;
-   width: max-content;
-   height: auto;
-   font-size: 1.3rem;
-   color: var(--clr-black-1);
-   background-color: var(--clr-black-4);
-   opacity: 0;
-   transition-delay: 1.2s;
-}
-
-.expense__delete::before {
-   content: "Delete expense";
-   position: absolute;
-   top: -40px;
-   left: 0;
-   padding: 4px;
-   width: max-content;
-   height: auto;
-   font-size: 1.3rem;
-   color: var(--clr-black-1);
-   background-color: var(--clr-black-4);
-   opacity: 0;
-   transition-delay: 1.2s;
-}
-
-.expense__edit:hover::before,
-.expense__delete:hover::before {
-   opacity: 1;
-}
-
 .expense__group > * + * {
    margin-block-start: 3px;
 }
