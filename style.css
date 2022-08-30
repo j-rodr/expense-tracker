@@ -49,6 +49,10 @@ main {
    padding-inline: calc(2vw + 2rem);
 }
 
+input {
+   color-scheme: dark;
+}
+
 /* #Header */
 
 .header {
@@ -63,15 +67,95 @@ main {
 
 /* #Main */
 
-main .btn--primary {
+.section-header .btn--primary {
    margin-inline-start: 30px;
 }
+
+/* #Expenses */
 
 .expenses {
    display: flex;
    flex-direction: column;
    gap: 20px;
    padding-block: 30px;
+}
+
+/* #Add-section */
+
+.add-section select {
+   appearance: none;
+}
+
+.add-section .flex {
+   gap: 25px;
+}
+
+.add-section .section-header {
+   margin-block-end: 12px;
+}
+
+.add-section .btn--primary {
+   width: 100%;
+   margin-block-start: 40px;
+}
+
+.add-section__form > * + * {
+   margin-block-end: 25px;
+}
+
+.add-section__header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.add-section__group {
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+   width: 100%;
+}
+
+.add-section__input-group {
+   position: relative;
+}
+
+.add-section__input-group span {
+   position: absolute;
+   left: 12px;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   font-size: 1.8rem;
+}
+
+.add-section__input,
+.add-section select {
+   height: 45px;
+   width: 100%;
+   padding: 0 15px;
+   border: 1px solid var(--clr-black-4);
+   border-radius: 3px;
+   font-size: 1.5rem;
+   color: var(--clr-white);
+   background-color: var(--clr-black-4);
+}
+
+.expense-amount {
+   padding-inline-start: 30px;
+}
+
+.select-group {
+   position: relative;
+}
+
+.select-group img {
+   position: absolute;
+   display: block;
+   top: 0;
+   bottom: 0;
+   left: calc(100% - 25px);
+   margin: auto 0;
 }
 
 /* #Footer */
@@ -93,10 +177,11 @@ footer svg {
 }
 
 footer .btn--secondary {
+   min-width: 148px;
    margin-block-start: 25px;
    margin-inline-start: calc(2vw + 2rem);
    align-self: start;
-   min-width: 148px;
+   font-size: 1.6rem;
 }
 
 .statistics {
@@ -227,7 +312,6 @@ footer .btn--secondary {
 }
 
 .btn--secondary {
-   font-size: 1.6rem;
    border-color: var(--clr-black-4);
    color: var(--clr-white);
    background-color: var(--clr-black-4);
@@ -329,7 +413,17 @@ footer .btn--secondary {
    font-size: 2.2rem;
 }
 
-/* Utilities */
+/* #Utilities */
+
+.section-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.text-disabled {
+   color: var(--clr-black-3);
+}
 
 .flex {
    display: flex;
