@@ -448,7 +448,7 @@ footer .btn--secondary {
 }
 
 .is-hidden {
-   display: none;
+   display: none !important;
 }
 
 .empty-icon {

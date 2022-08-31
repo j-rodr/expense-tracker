@@ -4,9 +4,11 @@ let stats = document.getElementById("stats-section")
 let statsToggles = document.querySelectorAll(".statistics-toggle")
 let statToggleBtn = document.querySelector(".btn.statistics-toggle")
 let callout = document.querySelector(".callout")
+let emptyMessage = document.getElementById("empty-message")
 let hideCalloutBtn = document.getElementById("hide-callout")
 let addSectionBtn = document.getElementById("add-section-btn")
 let hideAddSectionBtn = document.getElementById("hide-add-section-btn")
+let expensesSection = document.getElementById("expenses-section")
 
 /* Event listeners */
 
@@ -39,7 +41,7 @@ addSectionBtn.addEventListener("click", () => addSectionToggle("show"))
 
 hideAddSectionBtn.addEventListener("click", () => addSectionToggle("hide"))
 
-/* Functions */
+/* General-purpose functions */
 
 function hideElement(element) {
    element.classList.add("is-hidden")
@@ -71,6 +73,54 @@ function addSectionToggle(option) {
    }
 }
 
+/* Business logic */
 
+const EXPENSES = [
+   {
+      category: "Groceries",
+      name: "Dinner bills",
+      date: "August 3, 2022",
+      amount: 76.50,
+      paymentMethod: "card"
+   }
+]
+
+// Show/hide empty message
+
+showElement(emptyMessage)
+
+if (EXPENSES.length) {
+   hideElement(emptyMessage)
+}
+
+// Display all expenses
+
+for (let { category, name, date, amount, paymentMethod } of EXPENSES) {
+   expensesSection.innerHTML += expenseElement(category, name, date, amount, paymentMethod)
+}
+
+// Create expense card
+
+function expenseElement(category, name, date, amount, paymentMethod) {
+   return `
+   <div class="expense">
+      <div class="expense__edit" id="edit-expense">
+         <img src="./assets/hamburger-menu-icon.svg" alt="Edit icon">
+      </div>
+      <div class="expense__group">
+         <p class="expense__category" id="expense-category">${category}</p>
+         <p class="expense__name" id="expense-name">${name}</p>
+         <p class="expense__date" id="expense-date">${date}</p>
+      </div>
+      <div class="expense__group">
+         <p class="expense__amount" id="expense-amount">$${amount}</p>
+         <p class="expense__payment-method" id="expense-payment-method">Paid with ${paymentMethod}</p>
+      </div>
+      <div class="expense__delete" id="delete-expense">
+         <img src="./assets/cross-icon-medium.svg" alt="Delete icon">
+      </div>
+   </div>
+   `
+}
 
 
