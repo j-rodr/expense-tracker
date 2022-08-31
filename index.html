@@ -28,23 +28,20 @@
          </p>
       </div>
 
-      <div class="section-header">
+      <div class="section-header" id="expenses-header">
          <div>
             <h1 class="title">Expense history</h1>
             <p>All expenses will show down bellow in a list</p>
          </div>
-         <button class="btn btn--primary">Add transaction<img class="plus-icon" src="./assets/plus-icon.svg"></button>
+         <button class="btn btn--primary" id="add-section-btn">Add transaction<img class="plus-icon"
+               src="./assets/plus-icon.svg"></button>
       </div>
 
-      <!--
-
-      // Add section   
-
-      <section class="add-section">
+      <section class="add-section is-hidden" id="add-section">
          <div class="add-section__form">
             <div class="section-header">
                <h1 class="title">Add transaction</h1>
-               <button class="btn btn--secondary">Cancel <img src="./assets/cross-icon-small.svg"></button>
+               <button class="btn btn--secondary" id="hide-add-section-btn">Cancel <img src="./assets/cross-icon-small.svg"></button>
             </div>
 
             <div class="add-section__group">
@@ -90,12 +87,8 @@
             <button class="btn btn--primary">Save</button>
          </div>
       </section>
-      -->
 
-      <!--<section class="expenses" id="expenses-section">
-
-         // Expense card
-         
+      <section class="expenses" id="expenses-section">
          <div class="expense">
             <div class="expense__edit" id="edit-expense">
                <img src="./assets/hamburger-menu-icon.svg" alt="Edit icon">
@@ -113,9 +106,9 @@
                <img src="./assets/cross-icon-medium.svg" alt="Delete icon">
             </div>
          </div>
-         
-         <p class="empty-message">No transactions have been added</p>
-      </section> -->
+
+         <!--<p class="empty-message">No transactions have been added</p>-->
+      </section>
    </main>
 
    <footer>
