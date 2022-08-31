@@ -9,6 +9,7 @@ let hideCalloutBtn = document.getElementById("hide-callout")
 let addSectionBtn = document.getElementById("add-section-btn")
 let hideAddSectionBtn = document.getElementById("hide-add-section-btn")
 let expensesSection = document.getElementById("expenses-section")
+let addExpenseBtn = document.getElementById("add-expense-btn")
 
 /* Event listeners */
 
@@ -41,6 +42,8 @@ addSectionBtn.addEventListener("click", () => addSectionToggle("show"))
 
 hideAddSectionBtn.addEventListener("click", () => addSectionToggle("hide"))
 
+addExpenseBtn.addEventListener("click", addExpense)
+
 /* General-purpose functions */
 
 function hideElement(element) {
@@ -59,6 +62,7 @@ function addSectionToggle(option) {
    if (option === "show") {
       hideElement(expensesHeaderSection)
       hideElement(expensesSection)
+      hideElement(emptyMessage)
       showElement(addSection)
 
       return;
@@ -69,25 +73,38 @@ function addSectionToggle(option) {
       showElement(expensesSection)
       hideElement(addSection)
 
+      if (!EXPENSES.length) {
+         showElement(emptyMessage)
+      }
+
+      renderExpenses()
+
       return;
    }
 }
 
+function parseDate(date) {
+   // E.g. "2022-08-15" to "August 8, 2022" 
+
+   const MONTHS = ["January", "February", "March", "April", "May", "June", "July",
+      "August", "September", "October", "November", "December"];
+
+   return `${MONTHS[parseInt(date.slice(5, 7)) - 1]} ${parseInt(date.slice(8, 10))}, ${date.slice(0, 4)}`
+}
+
+function clearAddFields() {
+   document.getElementById("expense-category").value = ""
+   document.getElementById("expense-name").value = ""
+   document.getElementById("expense-date").value = ""
+   document.getElementById("expense-amount").value = ""
+   document.getElementById("expense-payment-method").value = ""
+}
+
 /* Business logic */
 
-const EXPENSES = [
-   {
-      category: "Groceries",
-      name: "Dinner bills",
-      date: "August 3, 2022",
-      amount: 76.50,
-      paymentMethod: "card"
-   }
-]
+const EXPENSES = []
 
 // Show/hide empty message
-
-showElement(emptyMessage)
 
 if (EXPENSES.length) {
    hideElement(emptyMessage)
@@ -95,8 +112,13 @@ if (EXPENSES.length) {
 
 // Display all expenses
 
-for (let { category, name, date, amount, paymentMethod } of EXPENSES) {
-   expensesSection.innerHTML += expenseElement(category, name, date, amount, paymentMethod)
+renderExpenses()
+
+function renderExpenses() {
+   expensesSection.innerHTML = ""
+   for (let { category, name, date, amount, paymentMethod } of EXPENSES) {
+      expensesSection.innerHTML += expenseElement(category, name, date, amount, paymentMethod)
+   }
 }
 
 // Create expense card
@@ -121,6 +143,41 @@ function expenseElement(category, name, date, amount, paymentMethod) {
       </div>
    </div>
    `
+}
+
+// Add expense card
+
+function addExpense() {
+   let categoryInput = document.getElementById("expense-category")
+   let nameInput = document.getElementById("expense-name")
+   let dateInput = document.getElementById("expense-date")
+   let amountInput = document.getElementById("expense-amount")
+   let paymentMethodInput = document.getElementById("expense-payment-method")
+
+   if (!categoryInput.value || !nameInput.value || !dateInput.value || !amountInput.value || !paymentMethodInput.value) {
+      alert("You must fill in all fields to add a transaction.")
+      return;
+   }
+
+   if (parseInt(amountInput.value) <= 0) {
+      alert("The expense amount can't be less than $1.")
+      return;
+   }
+
+   EXPENSES.push({
+      id: EXPENSES.reduce((acc, current) => current.id > acc ? current.id : acc, 0) + 1,
+      category: categoryInput.value,
+      name: nameInput.value,
+      date: parseDate(dateInput.value),
+      amount: parseInt(amountInput.value),
+      paymentMethod: paymentMethodInput.value
+   })
+
+   clearAddFields()
+
+   setTimeout(() => {
+      alert("The expense was successfully added.")
+   }, 100)
 }
 
 

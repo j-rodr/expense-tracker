@@ -324,7 +324,7 @@ footer .btn--secondary {
 
 .empty-message {
    width: max-content;
-   margin: 50px auto;
+   margin-inline: auto;
    padding: 10px 12px;
    border-radius: 3px;
    font-size: 1.5rem;

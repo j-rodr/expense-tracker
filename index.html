@@ -55,7 +55,7 @@
                   <label for="expense-amount" class="add-section__label">Amount</label>
                   <div class="add-section__input-group">
                      <span>$</span>
-                     <input type="number" class="add-section__input expense-amount" id="expense-amount">
+                     <input type="number" min="1" class="add-section__input expense-amount" id="expense-amount">
                   </div>
                </div>
 
@@ -63,6 +63,7 @@
                   <label for="expense-payment-method">Payment method</label>
                   <div class="select-group">
                      <select id="expense-payment-method">
+                        <option value="carl">Carl</option>
                      </select>
                      <img src="./assets/chevron-down-icon.svg">
                   </div>
@@ -74,6 +75,7 @@
                   <label for="expense-category">Category</label>
                   <div class="select-group">
                      <select id="expense-category">
+                        <option value="carl">Carl</option>
                      </select>
                      <img src="./assets/chevron-down-icon.svg">
                   </div>
@@ -85,13 +87,15 @@
                </div>
             </div>
 
-            <button class="btn btn--primary">Save</button>
+            <button class="btn btn--primary" id="add-expense-btn">Save</button>
          </div>
       </section>
 
       <section class="expenses" id="expenses-section">
-         <p class="empty-message" id="empty-message">No transactions have been added</p>
+         
       </section>
+
+      <p class="empty-message" id="empty-message">No transactions have been added</p>
    </main>
 
    <footer>
