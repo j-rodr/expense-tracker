@@ -50,39 +50,6 @@ hideAddSectionBtn.addEventListener("click", () => addSectionToggle("hide"))
 
 addExpenseBtn.addEventListener("click", addExpense)
 
-/* Custom select menus */
-
-paymentMethodInput.addEventListener("click", () => {
-   paymentMethodSelect.style.visibility = "visible"
-
-})
-
-categoryInput.addEventListener("click", () => {
-   categorySelect.style.visibility = "visible"
-})
-
-document.addEventListener("click", (e) => {
-   if (e.target !== paymentMethodInput) {
-      paymentMethodSelect.style.visibility = "hidden"
-   }
-
-   if (e.target !== categoryInput) {
-      categorySelect.style.visibility = "hidden"
-   }
-})
-
-paymentMethodSelectOptions.forEach(option => {
-   option.addEventListener("click", function () {
-      paymentMethodInput.value = this.innerText
-   })
-})
-
-categorySelectOptions.forEach(option => {
-   option.addEventListener("click", function () {
-      categoryInput.value = this.innerText
-   })
-})
-
 /* General-purpose functions */
 
 function hideElement(element) {
@@ -139,27 +106,57 @@ function clearAddFields() {
    document.getElementById("expense-payment-method").value = ""
 }
 
+function capitalize(string) {
+   return string[0].toUpperCase() + string.slice(1)
+}
+
 /* Business logic */
 
 const EXPENSES = []
 const CATEGORIES = []
-const PAYMENT_METHODS = []
-
-// Show/hide empty message
+const PAYMENT_METHODS = ["Card", "Cash", "Check"]
 
 if (EXPENSES.length) {
    hideElement(emptyMessage)
 }
 
-// Display all expenses
-
 renderExpenses()
+renderSelectOptions()
+
+// Display all expenses
 
 function renderExpenses() {
    expensesSection.innerHTML = ""
    for (let { category, name, date, amount, paymentMethod } of EXPENSES) {
       expensesSection.innerHTML += expenseElement(category, name, date, amount, paymentMethod)
    }
+}
+
+// Display all categories in form
+
+function renderSelectOptions() {
+   categorySelect.innerHTML = ""
+   paymentMethodSelect.innerHTML = ""
+
+   for (let category of CATEGORIES) {
+      categorySelect.innerHTML += `<p class="category-option">${category}</p>`
+   }
+
+   for (let paymentMethod of PAYMENT_METHODS) {
+      paymentMethodSelect.innerHTML += `<p class="method-option">${paymentMethod}</p>`
+   }
+
+   document.querySelectorAll(".method-option").forEach(option => {
+      option.addEventListener("click", function () {
+         paymentMethodInput.value = this.innerText
+      })
+   })
+
+   document.querySelectorAll(".category-option").forEach(option => {
+      option.addEventListener("click", function () {
+         categoryInput.value = this.innerText
+      })
+   })
 }
 
 // Create expense card
@@ -177,7 +174,7 @@ function expenseElement(category, name, date, amount, paymentMethod) {
       </div>
       <div class="expense__group">
          <p class="expense__amount" id="expense-amount">$${amount}</p>
-         <p class="expense__payment-method" id="expense-payment-method">Paid with ${paymentMethod}</p>
+         <p class="expense__payment-method" id="expense-payment-method">Paid with ${paymentMethod.toLowerCase()}</p>
       </div>
       <div class="expense__delete" id="delete-expense">
          <img src="./assets/cross-icon-medium.svg" alt="Delete icon">
@@ -205,20 +202,61 @@ function addExpense() {
       return;
    }
 
+   if (!PAYMENT_METHODS.includes(capitalize(paymentMethodInput.value.toLowerCase().trim()))) {
+      PAYMENT_METHODS.push(capitalize(paymentMethodInput.value.toLowerCase().trim()))
+   }
+
+   if (!CATEGORIES.includes(capitalize(categoryInput.value.toLowerCase().trim()))) {
+      CATEGORIES.push(capitalize(categoryInput.value.toLowerCase().trim()))
+   }
+
    EXPENSES.push({
       id: EXPENSES.reduce((acc, current) => current.id > acc ? current.id : acc, 0) + 1,
-      category: categoryInput.value,
-      name: nameInput.value,
+      category: capitalize(categoryInput.value.toLowerCase().trim()),
+      name: capitalize(paymentMethodInput.value.toLowerCase().trim()),
       date: parseDate(dateInput.value),
       amount: parseFloat(amountInput.value),
       paymentMethod: paymentMethodInput.value
    })
 
    clearAddFields()
+   renderSelectOptions()
 
    setTimeout(() => {
       alert("The expense was successfully added.")
    }, 100)
 }
 
+/* Custom select menus */
 
+paymentMethodInput.addEventListener("click", () => {
+   paymentMethodSelect.style.visibility = "visible"
+   if (!PAYMENT_METHODS.length) paymentMethodSelect.innerHTML = "<p style='color: #707070;'>Insert a payment method</p>"
+})
+
+categoryInput.addEventListener("click", () => {
+   categorySelect.style.visibility = "visible"
+   if (!CATEGORIES.length) categorySelect.innerHTML = "<p style='color: #707070;'>Create a category</p>"
+})
+
+document.addEventListener("click", (e) => {
+   if (e.target !== paymentMethodInput) {
+      paymentMethodSelect.style.visibility = "hidden"
+   }
+
+   if (e.target !== categoryInput) {
+      categorySelect.style.visibility = "hidden"
+   }
+})
+
+/* Select menus validation */
+
+paymentMethodInput.addEventListener("keyup", (e) => {
+   let inputValue = e.target.value
+   paymentMethodInput.value = inputValue.replace(/\d/g, '')
+})
+
+categoryInput.addEventListener("keyup", (e) => {
+   let inputValue = e.target.value
+   categoryInput.value = inputValue.replace(/\d/g, '')
+})
