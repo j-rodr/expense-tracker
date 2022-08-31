@@ -10,6 +10,12 @@ let addSectionBtn = document.getElementById("add-section-btn")
 let hideAddSectionBtn = document.getElementById("hide-add-section-btn")
 let expensesSection = document.getElementById("expenses-section")
 let addExpenseBtn = document.getElementById("add-expense-btn")
+let paymentMethodSelect = document.getElementById("methods-select")
+let paymentMethodSelectOptions = document.querySelectorAll(".method-option")
+let categorySelect = document.getElementById("categories-select")
+let categorySelectOptions = document.querySelectorAll(".category-option")
+let categoryInput = document.getElementById("expense-category")
+let paymentMethodInput = document.getElementById("expense-payment-method")
 
 /* Event listeners */
 
@@ -43,6 +49,39 @@ addSectionBtn.addEventListener("click", () => addSectionToggle("show"))
 hideAddSectionBtn.addEventListener("click", () => addSectionToggle("hide"))
 
 addExpenseBtn.addEventListener("click", addExpense)
+
+/* Custom select menus */
+
+paymentMethodInput.addEventListener("click", () => {
+   paymentMethodSelect.style.visibility = "visible"
+
+})
+
+categoryInput.addEventListener("click", () => {
+   categorySelect.style.visibility = "visible"
+})
+
+document.addEventListener("click", (e) => {
+   if (e.target !== paymentMethodInput) {
+      paymentMethodSelect.style.visibility = "hidden"
+   }
+
+   if (e.target !== categoryInput) {
+      categorySelect.style.visibility = "hidden"
+   }
+})
+
+paymentMethodSelectOptions.forEach(option => {
+   option.addEventListener("click", function () {
+      paymentMethodInput.value = this.innerText
+   })
+})
+
+categorySelectOptions.forEach(option => {
+   option.addEventListener("click", function () {
+      categoryInput.value = this.innerText
+   })
+})
 
 /* General-purpose functions */
 
@@ -103,6 +142,8 @@ function clearAddFields() {
 /* Business logic */
 
 const EXPENSES = []
+const CATEGORIES = []
+const PAYMENT_METHODS = []
 
 // Show/hide empty message
 
@@ -159,7 +200,7 @@ function addExpense() {
       return;
    }
 
-   if (parseInt(amountInput.value) <= 0) {
+   if (parseFloat(amountInput.value) <= 0) {
       alert("The expense amount can't be less than $1.")
       return;
    }
@@ -169,7 +210,7 @@ function addExpense() {
       category: categoryInput.value,
       name: nameInput.value,
       date: parseDate(dateInput.value),
-      amount: parseInt(amountInput.value),
+      amount: parseFloat(amountInput.value),
       paymentMethod: paymentMethodInput.value
    })
 

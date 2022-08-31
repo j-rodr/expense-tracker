@@ -55,29 +55,39 @@
                   <label for="expense-amount" class="add-section__label">Amount</label>
                   <div class="add-section__input-group">
                      <span>$</span>
-                     <input type="number" min="1" class="add-section__input expense-amount" id="expense-amount">
+                     <input type="number" step=".01" class="add-section__input expense-amount" id="expense-amount">
                   </div>
                </div>
 
                <div class="add-section__group">
-                  <label for="expense-payment-method">Payment method</label>
-                  <div class="select-group">
-                     <select id="expense-payment-method">
-                        <option value="carl">Carl</option>
-                     </select>
-                     <img src="./assets/chevron-down-icon.svg">
+                  <div class="add-section__group">
+                     <label for="expense-payment-method" class="add-section__label">Payment method</label>
+                     <div class="add-section__input-group add-section__select">
+                        <input type="text" class="add-section__input" id="expense-payment-method">
+                        <img src="./assets/chevron-down-icon.svg">
+                        <div class="custom-select" id="methods-select">
+                           <p class="method-option">Cash</p>
+                           <p class="method-option">Card</p>
+                           <p class="method-option">Check</p>
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>
 
             <div class="flex">
                <div class="add-section__group">
-                  <label for="expense-category">Category</label>
-                  <div class="select-group">
-                     <select id="expense-category">
-                        <option value="carl">Carl</option>
-                     </select>
-                     <img src="./assets/chevron-down-icon.svg">
+                  <div class="add-section__group">
+                     <label for="expense-category" class="add-section__label">Category</label>
+                     <div class="add-section__input-group add-section__select">
+                        <input type="text" class="add-section__input" id="expense-category">
+                        <img src="./assets/chevron-down-icon.svg">
+                        <div class="custom-select" id="categories-select">
+                           <p class="category-option">Cash</p>
+                           <p class="category-option">Card</p>
+                           <p class="category-option">Check</p>
+                        </div>
+                     </div>
                   </div>
                </div>
 
@@ -92,7 +102,7 @@
       </section>
 
       <section class="expenses" id="expenses-section">
-         
+
       </section>
 
       <p class="empty-message" id="empty-message">No transactions have been added</p>
