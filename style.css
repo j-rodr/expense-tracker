@@ -363,8 +363,8 @@ footer .btn--secondary {
 }
 
 .expense__edit {
-   left: -70px;
-   padding: 10px 9px;
+   left: -73px;
+   padding: 12px 11px;
 }
 
 .expense__edit:hover {
@@ -372,7 +372,7 @@ footer .btn--secondary {
 }
 
 .expense__delete {
-   left: calc(100% + 17px);
+   left: calc(100% + 25px);
    padding: 8px;
    background-color: var(--clr-red);
 }
