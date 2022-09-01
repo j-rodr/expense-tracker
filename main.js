@@ -46,7 +46,12 @@ hideCalloutBtn.addEventListener("click", () => {
 
 addSectionBtn.addEventListener("click", () => addSectionToggle("show"))
 
-hideAddSectionBtn.addEventListener("click", () => addSectionToggle("hide"))
+hideAddSectionBtn.addEventListener("click", () => {
+   addSectionToggle("hide")
+   if (!EXPENSES.length) {
+      showElement(emptyMessage)
+   }
+})
 
 addExpenseBtn.addEventListener("click", addExpense)
 
@@ -239,6 +244,10 @@ function deleteExpense(id) {
 
       expenseCard.addEventListener("animationend", () => {
          renderExpenses()
+
+         if (!EXPENSES.length) {
+            showElement(emptyMessage)
+         }
       })
    }
 }
