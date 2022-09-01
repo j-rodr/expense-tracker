@@ -31,7 +31,7 @@
       <div class="section-header" id="expenses-header">
          <div>
             <h1 class="title">Expense history</h1>
-            <p>All expenses will show down bellow</p>
+            <p id="section-header-subtitle">All expenses will show down bellow</p>
          </div>
          <button class="btn btn--primary" id="add-section-btn">Add transaction<img class="plus-icon"
                src="./assets/plus-icon.svg"></button>
@@ -39,7 +39,8 @@
 
       <section class="form is-hidden" id="add-section">
          <div class="section-header">
-            <h1 class="title">Add transaction</h1>
+            <h1 class="title" id="add-transaction-title">Add transaction</h1>
+            <h1 class="title is-hidden" id="edit-transaction-title">Edit transaction</h1>
             <button class="btn btn--secondary" id="hide-add-section-btn">Cancel <img
                   src="./assets/cross-icon-small.svg"></button>
          </div>
@@ -98,7 +99,7 @@
       <p class="empty-message" id="empty-message">No transactions in the database</p>
    </main>
 
-   <footer>
+   <footer class="footer">
 
       <button class="btn btn--secondary statistics-toggle">
          See statistics

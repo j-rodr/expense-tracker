@@ -17,6 +17,8 @@ let categorySelectOptions = document.querySelectorAll(".category-option")
 let categoryInput = document.getElementById("expense-category")
 let paymentMethodInput = document.getElementById("expense-payment-method")
 let editExpenseBtn = document.getElementById("edit-expense-btn")
+let editExpenseTitle = document.getElementById("edit-transaction-title")
+let addExpenseTitle = document.getElementById("add-transaction-title")
 
 // Statistics toggles
 
@@ -85,6 +87,9 @@ function addSectionToggle(option) {
       hideElement(emptyMessage)
       showElement(addSection)
 
+      hideElement(editExpenseTitle)
+      showElement(addExpenseTitle)
+
       return;
    }
 
@@ -99,7 +104,8 @@ function addSectionToggle(option) {
 
       renderExpenses()
 
-      return;
+      showElement(editExpenseTitle)
+      hideElement(addExpenseTitle)
    }
 }
 
@@ -144,15 +150,20 @@ function capitalize(string) {
 let EXPENSES = [
    /*{
       id: 1,
-      category: "Groceries",
+      category: {
+         name: "category",
+         color: "#000"
+      },
       name: "Dinner bills",
       date: "August 3, 2022",
       amount: 115.99,
       paymentMethod: "Card"
    }*/
 ]
+
 let CATEGORIES = []
 let PAYMENT_METHODS = ["Card", "Cash", "Check"]
+let COLORS = ["#8678ea", "#21dad7", "#d16eff", "#ffabf6", "#ff007a", "#3866f2"]
 
 if (EXPENSES.length) {
    hideElement(emptyMessage)
@@ -160,6 +171,7 @@ if (EXPENSES.length) {
 
 renderExpenses()
 renderSelectOptions()
+calculateTotal()
 
 // Display all expenses
 
@@ -177,7 +189,7 @@ function renderSelectOptions() {
    paymentMethodSelect.innerHTML = ""
 
    for (let category of CATEGORIES) {
-      categorySelect.innerHTML += `<p class="category-option">${category}</p>`
+      categorySelect.innerHTML += `<p class="category-option">${category.name}</p>`
    }
 
    for (let paymentMethod of PAYMENT_METHODS) {
@@ -201,12 +213,12 @@ function renderSelectOptions() {
 
 function expenseElement(id, category, name, date, amount, paymentMethod) {
    return `
-   <div class="expense" data-id="${id}">
+   <div class="expense" data-id="${id}" style="border-left-color: ${category.color}">
       <div class="expense__edit edit-expense" onclick="editExpense(${id})">
          <img src="./assets/hamburger-menu-icon.svg" alt="Edit icon">
       </div>
       <div class="expense__group">
-         <p class="expense__category" id="expense-category">${category}</p>
+         <p class="expense__category" id="expense-category" style="color: ${category.color}">${category.name}</p>
          <p class="expense__name" id="expense-name">${name}</p>
          <p class="expense__date" id="expense-date">${date}</p>
       </div>
@@ -244,13 +256,27 @@ function addExpense() {
       PAYMENT_METHODS.push(capitalize(paymentMethodInput.value.toLowerCase().trim()))
    }
 
-   if (!CATEGORIES.includes(capitalize(categoryInput.value.toLowerCase().trim()))) {
-      CATEGORIES.push(capitalize(categoryInput.value.toLowerCase().trim()))
+   let categoryName = capitalize(categoryInput.value.toLowerCase().trim())
+
+   if (!CATEGORIES.some(category => category.name === categoryName)) {
+
+      let randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
+
+      if (EXPENSES.length) {
+         while (EXPENSES[EXPENSES.length - 1].category.color === randomColor) {
+            randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
+         }
+      }
+
+      CATEGORIES.push({
+         name: categoryName,
+         color: randomColor
+      })
    }
 
    EXPENSES.push({
       id: EXPENSES.reduce((acc, current) => current.id > acc ? current.id : acc, 0) + 1,
-      category: capitalize(categoryInput.value.toLowerCase().trim()),
+      category: CATEGORIES.filter(category => category.name === categoryName)[0],
       name: nameInput.value,
       date: parseDate(dateInput.value),
       amount: parseFloat(amountInput.value),
@@ -259,6 +285,7 @@ function addExpense() {
 
    clearAddFields()
    renderSelectOptions()
+   calculateTotal()
 
    setTimeout(() => {
       alert("The expense was successfully added.")
@@ -282,6 +309,8 @@ function deleteExpense(id) {
             showElement(emptyMessage)
          }
       })
+
+      calculateTotal()
    }
 }
 
@@ -296,6 +325,9 @@ function editExpense(id) {
    showElement(editExpenseBtn)
    hideElement(addExpenseBtn)
 
+   showElement(editExpenseTitle)
+   hideElement(addExpenseTitle)
+
    let categoryInput = document.getElementById("expense-category")
    let nameInput = document.getElementById("expense-name")
    let dateInput = document.getElementById("expense-date")
@@ -304,11 +336,13 @@ function editExpense(id) {
 
    let currentExpense = EXPENSES.filter(expense => expense.id === id)[0]
 
-   categoryInput.value = currentExpense.category
+   categoryInput.value = currentExpense.category.name
    nameInput.value = currentExpense.name
    dateInput.value = parseDate(currentExpense.date, "reverse")
    amountInput.value = currentExpense.amount
    paymentMethodInput.value = currentExpense.paymentMethod
+
+   renderSelectOptions()
 }
 
 editExpenseBtn.addEventListener("click", () => {
@@ -334,15 +368,29 @@ editExpenseBtn.addEventListener("click", () => {
          PAYMENT_METHODS.push(capitalize(paymentMethodInput.value.toLowerCase().trim()))
       }
 
-      if (!CATEGORIES.includes(capitalize(categoryInput.value.toLowerCase().trim()))) {
-         CATEGORIES.push(capitalize(categoryInput.value.toLowerCase().trim()))
+      let categoryName = capitalize(categoryInput.value.toLowerCase().trim())
+
+      if (!CATEGORIES.some(category => category.name === categoryName)) {
+
+         let randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
+
+         if (EXPENSES.length) {
+            while (EXPENSES[EXPENSES.length - 1].category.color === randomColor) {
+               randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
+            }
+         }
+
+         CATEGORIES.push({
+            name: categoryName,
+            color: randomColor
+         })
       }
 
       EXPENSES = EXPENSES.filter(expense => expense.id !== currentExpenseID)
 
       EXPENSES.push({
          id: currentExpenseID,
-         category: capitalize(categoryInput.value.toLowerCase().trim()),
+         category: CATEGORIES.filter(category => category.name === categoryName)[0],
          name: nameInput.value,
          date: parseDate(dateInput.value),
          amount: parseFloat(amountInput.value),
@@ -357,6 +405,7 @@ editExpenseBtn.addEventListener("click", () => {
 
       renderExpenses()
       renderSelectOptions()
+      calculateTotal()
    }
 })
 
@@ -364,12 +413,12 @@ editExpenseBtn.addEventListener("click", () => {
 
 paymentMethodInput.addEventListener("click", () => {
    paymentMethodSelect.style.visibility = "visible"
-   if (!PAYMENT_METHODS.length) paymentMethodSelect.innerHTML = "<p style='color: #707070;'>Insert a payment method</p>"
+   if (!PAYMENT_METHODS.length) paymentMethodSelect.innerHTML = "<p style='color: #707070; white-space: nowrap'>Insert a payment method</p>"
 })
 
 categoryInput.addEventListener("click", () => {
    categorySelect.style.visibility = "visible"
-   if (!CATEGORIES.length) categorySelect.innerHTML = "<p style='color: #707070;'>Create a category</p>"
+   if (!CATEGORIES.length) categorySelect.innerHTML = "<p style='color: #707070; white-space: nowrap'>Create a category</p>"
 })
 
 document.addEventListener("click", (e) => {
@@ -393,3 +442,13 @@ categoryInput.addEventListener("keyup", (e) => {
    let inputValue = e.target.value
    categoryInput.value = inputValue.replace(/\d/g, '')
 })
+
+/* Display total */
+
+function calculateTotal() {
+   let totalExpenses = document.getElementById("total-expenses")
+
+   let total = EXPENSES.reduce((acc, current) => acc + current.amount, 0)
+
+   totalExpenses.innerText = `$${total.toFixed(2)}`
+}

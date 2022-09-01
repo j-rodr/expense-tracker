@@ -157,7 +157,7 @@ input {
 
 /* #Footer */
 
-footer {
+.footer {
    width: 100vw;
    max-width: 100%;
    position: fixed;
@@ -169,13 +169,13 @@ footer {
    background-color: var(--clr-black-5);
 }
 
-footer svg {
+.footer svg {
    width: 18px;
 }
 
-footer .btn--secondary {
+.footer .btn--secondary {
    min-width: 148px;
-   margin-block-start: 25px;
+   margin-block-start: 35px;
    margin-inline-start: calc(2vw + 2rem);
    align-self: start;
    font-size: 1.6rem;
@@ -218,19 +218,20 @@ footer .btn--secondary {
 
 .total {
    min-width: 200px;
-   width: 30%;
-   max-width: 240px;
-   max-height: 130px;
+   width: 40%;
+   max-width: 390px;
+   max-height: 145px;
    display: flex;
    flex-direction: column;
    justify-content: center;
-   text-align: end;
    padding-inline-end: 50px;
+   padding-block: 48px 42px;
    border-bottom: 5px solid var(--clr-purple);
+   border-top-left-radius: 10px;
 }
 
 .total__title {
-   margin-block-end: 6px;
+   text-align: end;
    font-size: 1.7rem;
    font-weight: var(--fw-bold);
    color: var(--clr-purple);
@@ -238,7 +239,7 @@ footer .btn--secondary {
 
 .total__amount {
    font-size: 5.5rem;
-   margin-block-end: 6px;
+   direction: rtl;
 }
 
 /* #Components */
@@ -437,6 +438,7 @@ footer .btn--secondary {
    box-shadow: 0px 3px 4px 0px hsla(0, 0%, 0%, 0.14),
       0px 3px 3px -2px hsla(0, 0%, 0%, 0.12),
       0px 1px 8px 0px hsla(0, 0%, 0%, 0.2);
+   z-index: 10;
    visibility: hidden;
 }
 
