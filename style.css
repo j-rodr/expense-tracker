@@ -6,6 +6,8 @@
    --clr-turquoise: #21dad7;
    --clr-pink: #d16eff;
    --clr-light-pink: #ffabf6;
+   --clr-red: #d52941;
+   --clr-dark-red: #b12135;
    --clr-black-5: #111111;
    --clr-black-4: #151515;
    --clr-black-3: #212121;
@@ -345,7 +347,7 @@ footer .btn--secondary {
 
 .expense__edit:hover,
 .expense__delete:hover {
-   background-color: var(--clr-black-3);
+   visibility: visible;
 }
 
 .expense__edit,
@@ -356,7 +358,7 @@ footer .btn--secondary {
    align-items: center;
    border-radius: 50%;
    cursor: pointer;
-   transition: visibility 1.5s ease;
+   transition: visibility 0.5s ease;
    visibility: hidden;
 }
 
@@ -365,9 +367,18 @@ footer .btn--secondary {
    padding: 10px 9px;
 }
 
+.expense__edit:hover {
+   background-color: var(--clr-black-4);
+}
+
 .expense__delete {
    left: calc(100% + 17px);
    padding: 8px;
+   background-color: var(--clr-red);
+}
+
+.expense__delete:hover {
+   background-color: var(--clr-dark-red);
 }
 
 .expense__group > * + * {

@@ -112,9 +112,9 @@ function capitalize(string) {
 
 /* Business logic */
 
-const EXPENSES = []
-const CATEGORIES = []
-const PAYMENT_METHODS = ["Card", "Cash", "Check"]
+let EXPENSES = []
+let CATEGORIES = []
+let PAYMENT_METHODS = ["Card", "Cash", "Check"]
 
 if (EXPENSES.length) {
    hideElement(emptyMessage)
@@ -127,8 +127,8 @@ renderSelectOptions()
 
 function renderExpenses() {
    expensesSection.innerHTML = ""
-   for (let { category, name, date, amount, paymentMethod } of EXPENSES) {
-      expensesSection.innerHTML += expenseElement(category, name, date, amount, paymentMethod)
+   for (let { id, category, name, date, amount, paymentMethod } of EXPENSES) {
+      expensesSection.innerHTML += expenseElement(id, category, name, date, amount, paymentMethod)
    }
 }
 
@@ -161,10 +161,10 @@ function renderSelectOptions() {
 
 // Create expense card
 
-function expenseElement(category, name, date, amount, paymentMethod) {
+function expenseElement(id, category, name, date, amount, paymentMethod) {
    return `
-   <div class="expense">
-      <div class="expense__edit" id="edit-expense">
+   <div class="expense" data-id="${id}">
+      <div class="expense__edit edit-expense" data-id="${id}">
          <img src="./assets/hamburger-menu-icon.svg" alt="Edit icon">
       </div>
       <div class="expense__group">
@@ -176,7 +176,7 @@ function expenseElement(category, name, date, amount, paymentMethod) {
          <p class="expense__amount" id="expense-amount">$${amount}</p>
          <p class="expense__payment-method" id="expense-payment-method">Paid with ${paymentMethod.toLowerCase()}</p>
       </div>
-      <div class="expense__delete" id="delete-expense">
+      <div class="expense__delete delete-expense" onclick="deleteExpense(${id})">
          <img src="./assets/cross-icon-medium.svg" alt="Delete icon">
       </div>
    </div>
@@ -213,10 +213,10 @@ function addExpense() {
    EXPENSES.push({
       id: EXPENSES.reduce((acc, current) => current.id > acc ? current.id : acc, 0) + 1,
       category: capitalize(categoryInput.value.toLowerCase().trim()),
-      name: capitalize(paymentMethodInput.value.toLowerCase().trim()),
+      name: nameInput.value,
       date: parseDate(dateInput.value),
       amount: parseFloat(amountInput.value),
-      paymentMethod: paymentMethodInput.value
+      paymentMethod: capitalize(paymentMethodInput.value.toLowerCase().trim())
    })
 
    clearAddFields()
@@ -225,6 +225,22 @@ function addExpense() {
    setTimeout(() => {
       alert("The expense was successfully added.")
    }, 100)
+}
+
+/* Delete expense */
+
+function deleteExpense(id) {
+   let confirmed = confirm("Are you sure you want to delete this expense? This process can't be undone.")
+   if (confirmed) {
+      EXPENSES = EXPENSES.filter(expense => expense.id !== id)
+
+      let expenseCard = document.querySelector(`.expense[data-id="${id}"]`)
+      expenseCard.classList.add("fade-out")
+
+      expenseCard.addEventListener("animationend", () => {
+         renderExpenses()
+      })
+   }
 }
 
 /* Custom select menus */
