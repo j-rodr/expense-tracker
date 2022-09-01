@@ -82,43 +82,43 @@ input {
    padding-block: 30px;
 }
 
-/* #Add-section */
+/* #form */
 
-.add-section .flex {
+.form > * + * {
+   margin-block-end: 25px;
+}
+
+.form .flex {
    gap: 25px;
 }
 
-.add-section .section-header {
+.form .section-header {
    margin-block-end: 12px;
 }
 
-.add-section .btn--primary {
+.form .btn--primary {
    width: 100%;
    margin-block-start: 40px;
 }
 
-.add-section__form > * + * {
-   margin-block-end: 25px;
-}
-
-.add-section__header {
+.form__header {
    display: flex;
    justify-content: space-between;
    align-items: center;
 }
 
-.add-section__group {
+.form__group {
    display: flex;
    flex-direction: column;
    gap: 8px;
    width: 100%;
 }
 
-.add-section__input-group {
+.form__input-group {
    position: relative;
 }
 
-.add-section__input-group span {
+.form__input-group span {
    position: absolute;
    left: 12px;
    height: 100%;
@@ -127,7 +127,7 @@ input {
    font-size: 1.8rem;
 }
 
-.add-section__input {
+.form__input {
    height: 45px;
    width: 100%;
    padding: 0 15px;
@@ -142,11 +142,11 @@ input {
    padding-inline-start: 30px;
 }
 
-.add-section__select {
+.form__select {
    position: relative;
 }
 
-.add-section__select img {
+.form__select img {
    position: absolute;
    display: block;
    top: 0;

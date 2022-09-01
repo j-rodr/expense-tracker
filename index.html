@@ -37,65 +37,63 @@
                src="./assets/plus-icon.svg"></button>
       </div>
 
-      <section class="add-section is-hidden" id="add-section">
-         <div class="add-section__form">
-            <div class="section-header">
-               <h1 class="title">Add transaction</h1>
-               <button class="btn btn--secondary" id="hide-add-section-btn">Cancel <img
-                     src="./assets/cross-icon-small.svg"></button>
-            </div>
-
-            <div class="add-section__group">
-               <label for="expense-name" class="add-section__label">Name</label>
-               <input type="text" class="add-section__input" id="expense-name" placeholder="Expense description">
-            </div>
-
-            <div class="flex">
-               <div class="add-section__group">
-                  <label for="expense-amount" class="add-section__label">Amount</label>
-                  <div class="add-section__input-group">
-                     <span>$</span>
-                     <input type="number" step=".01" class="add-section__input expense-amount" id="expense-amount">
-                  </div>
-               </div>
-
-               <div class="add-section__group">
-                  <div class="add-section__group">
-                     <label for="expense-payment-method" class="add-section__label">Payment method</label>
-                     <div class="add-section__input-group add-section__select">
-                        <input type="text" class="add-section__input" id="expense-payment-method">
-                        <img src="./assets/chevron-down-icon.svg">
-                        <div class="custom-select" id="methods-select"></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-
-            <div class="flex">
-               <div class="add-section__group">
-                  <div class="add-section__group">
-                     <label for="expense-category" class="add-section__label">Category</label>
-                     <div class="add-section__input-group add-section__select">
-                        <input type="text" class="add-section__input" id="expense-category">
-                        <img src="./assets/chevron-down-icon.svg">
-                        <div class="custom-select" id="categories-select"></div>
-                     </div>
-                  </div>
-               </div>
-
-               <div class="add-section__group">
-                  <label for="expense-date" class="add-section__label">Date</label>
-                  <input type="date" class="add-section__input" id="expense-date">
-               </div>
-            </div>
-
-            <button class="btn btn--primary" id="add-expense-btn">Save</button>
+      <section class="form is-hidden" id="add-section">
+         <div class="section-header">
+            <h1 class="title">Add transaction</h1>
+            <button class="btn btn--secondary" id="hide-add-section-btn">Cancel <img
+                  src="./assets/cross-icon-small.svg"></button>
          </div>
+
+         <div class="form__group">
+            <label for="expense-name" class="form__label">Name</label>
+            <input type="text" class="form__input" id="expense-name" placeholder="Expense description">
+         </div>
+
+         <div class="flex">
+            <div class="form__group">
+               <label for="expense-amount" class="form__label">Amount</label>
+               <div class="form__input-group">
+                  <span>$</span>
+                  <input type="number" step=".01" class="form__input expense-amount" id="expense-amount">
+               </div>
+            </div>
+
+            <div class="form__group">
+               <div class="form__group">
+                  <label for="expense-payment-method" class="form__label">Payment method</label>
+                  <div class="form__input-group form__select">
+                     <input type="text" class="form__input" id="expense-payment-method">
+                     <img src="./assets/chevron-down-icon.svg">
+                     <div class="custom-select" id="methods-select"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="flex">
+            <div class="form__group">
+               <div class="form__group">
+                  <label for="expense-category" class="form__label">Category</label>
+                  <div class="add-section__input-group form__select">
+                     <input type="text" class="form__input" id="expense-category">
+                     <img src="./assets/chevron-down-icon.svg">
+                     <div class="custom-select" id="categories-select"></div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="form__group">
+               <label for="expense-date" class="form__label">Date</label>
+               <input type="date" class="form__input" id="expense-date">
+            </div>
+
+         </div>
+
+         <button class="btn btn--primary" id="add-expense-btn">Save</button>
+         <button class="btn btn--primary is-hidden" id="edit-expense-btn">Save changes</button>
       </section>
 
-      <section class="expenses" id="expenses-section">
-
-      </section>
+      <section class="expenses" id="expenses-section"></section>
 
       <p class="empty-message" id="empty-message">No transactions in the database</p>
    </main>

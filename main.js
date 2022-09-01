@@ -16,8 +16,9 @@ let categorySelect = document.getElementById("categories-select")
 let categorySelectOptions = document.querySelectorAll(".category-option")
 let categoryInput = document.getElementById("expense-category")
 let paymentMethodInput = document.getElementById("expense-payment-method")
+let editExpenseBtn = document.getElementById("edit-expense-btn")
 
-/* Event listeners */
+// Statistics toggles
 
 statsToggles.forEach(toggle => {
    toggle.addEventListener("click", function () {
@@ -37,6 +38,8 @@ statsToggles.forEach(toggle => {
    })
 })
 
+// Callout toggle
+
 hideCalloutBtn.addEventListener("click", () => {
    callout.classList.add("fade-out")
    callout.addEventListener("animationend", () => {
@@ -44,14 +47,20 @@ hideCalloutBtn.addEventListener("click", () => {
    })
 })
 
+// Add senction toggles
+
 addSectionBtn.addEventListener("click", () => addSectionToggle("show"))
 
 hideAddSectionBtn.addEventListener("click", () => {
    addSectionToggle("hide")
+   showElement(addExpenseBtn)
+   hideElement(editExpenseBtn)
    if (!EXPENSES.length) {
       showElement(emptyMessage)
    }
 })
+
+// Add expense button
 
 addExpenseBtn.addEventListener("click", addExpense)
 
@@ -94,13 +103,28 @@ function addSectionToggle(option) {
    }
 }
 
-function parseDate(date) {
-   // E.g. "2022-08-15" to "August 8, 2022" 
+function parseDate(date, mode) {
+   // E.g. "2022-08-15" to "August 15, 2022"
+
+   // (reverse) E.g. "August 15, 2022" to "2022-08-15"
 
    const MONTHS = ["January", "February", "March", "April", "May", "June", "July",
       "August", "September", "October", "November", "December"];
 
-   return `${MONTHS[parseInt(date.slice(5, 7)) - 1]} ${parseInt(date.slice(8, 10))}, ${date.slice(0, 4)}`
+   if (!mode) {
+      return `${MONTHS[parseInt(date.slice(5, 7)) - 1]} ${parseInt(date.slice(8, 10))}, ${date.slice(0, 4)}`
+   }
+
+   if (mode === "reverse") {
+      let splitDate = date.split(" ")
+
+      let year = splitDate[2]
+      let month = (MONTHS.findIndex(month => month === splitDate[0]) + 1).toString().padStart(2, "0")
+      let day = splitDate[1].slice(0, splitDate[1].length - 1).padStart(2, "0")
+
+      return `${year}-${month}-${day}`
+   }
+
 }
 
 function clearAddFields() {
@@ -117,7 +141,16 @@ function capitalize(string) {
 
 /* Business logic */
 
-let EXPENSES = []
+let EXPENSES = [
+   /*{
+      id: 1,
+      category: "Groceries",
+      name: "Dinner bills",
+      date: "August 3, 2022",
+      amount: 115.99,
+      paymentMethod: "Card"
+   }*/
+]
 let CATEGORIES = []
 let PAYMENT_METHODS = ["Card", "Cash", "Check"]
 
@@ -169,7 +202,7 @@ function renderSelectOptions() {
 function expenseElement(id, category, name, date, amount, paymentMethod) {
    return `
    <div class="expense" data-id="${id}">
-      <div class="expense__edit edit-expense" data-id="${id}">
+      <div class="expense__edit edit-expense" onclick="editExpense(${id})">
          <img src="./assets/hamburger-menu-icon.svg" alt="Edit icon">
       </div>
       <div class="expense__group">
@@ -251,6 +284,81 @@ function deleteExpense(id) {
       })
    }
 }
+
+/* Update expense */
+
+let currentExpenseID;
+
+function editExpense(id) {
+   currentExpenseID = id
+   addSectionToggle("show")
+
+   showElement(editExpenseBtn)
+   hideElement(addExpenseBtn)
+
+   let categoryInput = document.getElementById("expense-category")
+   let nameInput = document.getElementById("expense-name")
+   let dateInput = document.getElementById("expense-date")
+   let amountInput = document.getElementById("expense-amount")
+   let paymentMethodInput = document.getElementById("expense-payment-method")
+
+   let currentExpense = EXPENSES.filter(expense => expense.id === id)[0]
+
+   categoryInput.value = currentExpense.category
+   nameInput.value = currentExpense.name
+   dateInput.value = parseDate(currentExpense.date, "reverse")
+   amountInput.value = currentExpense.amount
+   paymentMethodInput.value = currentExpense.paymentMethod
+}
+
+editExpenseBtn.addEventListener("click", () => {
+   if (currentExpenseID) {
+
+      let categoryInput = document.getElementById("expense-category")
+      let nameInput = document.getElementById("expense-name")
+      let dateInput = document.getElementById("expense-date")
+      let amountInput = document.getElementById("expense-amount")
+      let paymentMethodInput = document.getElementById("expense-payment-method")
+
+      if (!categoryInput.value || !nameInput.value || !dateInput.value || !amountInput.value || !paymentMethodInput.value) {
+         alert("You must fill in all fields to add a transaction.")
+         return;
+      }
+
+      if (parseFloat(amountInput.value) <= 0) {
+         alert("The expense amount can't be less than $1.")
+         return;
+      }
+
+      if (!PAYMENT_METHODS.includes(capitalize(paymentMethodInput.value.toLowerCase().trim()))) {
+         PAYMENT_METHODS.push(capitalize(paymentMethodInput.value.toLowerCase().trim()))
+      }
+
+      if (!CATEGORIES.includes(capitalize(categoryInput.value.toLowerCase().trim()))) {
+         CATEGORIES.push(capitalize(categoryInput.value.toLowerCase().trim()))
+      }
+
+      EXPENSES = EXPENSES.filter(expense => expense.id !== currentExpenseID)
+
+      EXPENSES.push({
+         id: currentExpenseID,
+         category: capitalize(categoryInput.value.toLowerCase().trim()),
+         name: nameInput.value,
+         date: parseDate(dateInput.value),
+         amount: parseFloat(amountInput.value),
+         paymentMethod: capitalize(paymentMethodInput.value.toLowerCase().trim())
+      })
+
+      clearAddFields()
+
+      setTimeout(() => {
+         alert("The expense was successfully updated.")
+      }, 100)
+
+      renderExpenses()
+      renderSelectOptions()
+   }
+})
 
 /* Custom select menus */
 
