@@ -82,6 +82,10 @@ input {
    padding-block: 30px;
 }
 
+.expense:last-child {
+   margin-block-end: 120px;
+}
+
 /* #form */
 
 .form > * + * {
@@ -155,25 +159,11 @@ input {
    margin: auto 0;
 }
 
-/* #Footer */
+/* #Statistics */
 
-.footer {
-   width: 100vw;
-   max-width: 100%;
+.statistics-btn {
    position: fixed;
-   bottom: 0;
-   display: flex;
-   justify-content: space-between;
-   align-items: end;
-   padding-block-start: 30px;
-   background-color: var(--clr-black-5);
-}
-
-.footer svg {
-   width: 18px;
-}
-
-.footer .btn--secondary {
+   top: calc(100vh - 140px);
    min-width: 148px;
    margin-block-start: 35px;
    margin-inline-start: calc(2vw + 2rem);
@@ -181,8 +171,14 @@ input {
    font-size: 1.6rem;
 }
 
+.statistics-btn svg {
+   width: 18px;
+}
+
 .statistics {
-   position: relative;
+   position: fixed;
+   z-index: 3;
+   bottom: 0;
    width: 70%;
    padding: 40px;
    border-top-right-radius: 15px;
@@ -217,6 +213,9 @@ input {
 }
 
 .total {
+   position: fixed;
+   right: 0;
+   bottom: 0;
    min-width: 200px;
    width: 40%;
    max-width: 390px;
@@ -228,6 +227,7 @@ input {
    padding-block: 48px 42px;
    border-bottom: 5px solid var(--clr-purple);
    border-top-left-radius: 10px;
+   background-color: var(--clr-black-5);
 }
 
 .total__title {
