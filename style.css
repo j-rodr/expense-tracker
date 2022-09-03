@@ -247,6 +247,8 @@ input {
 }
 
 .statistics__empty {
+   min-width: 40%;
+   width: 850px;
    display: flex;
    gap: 25px;
 }
