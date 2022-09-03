@@ -19,6 +19,8 @@ let paymentMethodInput = document.getElementById("expense-payment-method")
 let editExpenseBtn = document.getElementById("edit-expense-btn")
 let editExpenseTitle = document.getElementById("edit-transaction-title")
 let addExpenseTitle = document.getElementById("add-transaction-title")
+let statsEmptyMessage = document.getElementById("stats-empty")
+let statsContainer = document.getElementById("stats-container")
 
 // Statistics toggles
 
@@ -169,6 +171,10 @@ if (EXPENSES.length) {
    hideElement(emptyMessage)
 }
 
+if (CATEGORIES.length) {
+   hideElement(statsEmptyMessage)
+}
+
 renderExpenses()
 renderSelectOptions()
 calculateTotal()
@@ -286,6 +292,7 @@ function addExpense() {
    clearAddFields()
    renderSelectOptions()
    calculateTotal()
+   hideElement(statsEmptyMessage)
 
    setTimeout(() => {
       alert("The expense was successfully added.")
@@ -451,4 +458,20 @@ function calculateTotal() {
    let total = EXPENSES.reduce((acc, current) => acc + current.amount, 0)
 
    totalExpenses.innerText = `$${total.toFixed(2)}`
+}
+
+/* Create stats element */
+
+function statsElement(amount, percent, category) {
+   return `
+      <div class="statistics__item">
+         <div class="statistics__badge" style="background-color: ${category.color}"></div>
+         <div class="statistics__data">
+            <p class="statistics__amount">$${amount.toFixed(2)}</p>
+            <p class="statistics__subtitle">
+               <spent>${percent}% spent on ${category.name}</span>
+            </p>
+         </div>
+      </div>
+   `
 }
