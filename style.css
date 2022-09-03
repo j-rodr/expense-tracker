@@ -364,12 +364,13 @@ input {
 }
 
 .expense__edit {
-   left: -73px;
+   left: -75px;
    padding: 12px 11px;
+   background-color: var(--clr-black-4);
 }
 
 .expense__edit:hover {
-   background-color: var(--clr-black-4);
+   background-color: var(--clr-black-3);
 }
 
 .expense__delete {
