@@ -179,10 +179,16 @@ input {
    position: fixed;
    z-index: 3;
    bottom: 0;
-   width: 70%;
-   padding: 40px;
+   max-width: max-content;
+   padding: 40px 60px;
    border-top-right-radius: 15px;
    background-color: var(--clr-black-4);
+}
+
+.statistics__container {
+   display: flex;
+   align-items: center;
+   gap: 30px;
 }
 
 .statistics .chevrons-left-icon {
@@ -197,6 +203,39 @@ input {
    border-radius: 50%;
    cursor: pointer;
    transition: background-color 0.1s ease-out;
+}
+
+.statistics__item {
+   display: flex;
+   gap: 12px;
+   align-items: start;
+}
+
+.statistics__badge {
+   width: 17px;
+   min-width: 17px;
+   height: 17px;
+   min-height: 17px;
+   object-fit: cover;
+   border-radius: 50%;
+}
+
+.statistics__data {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.statistics__amount {
+   font-size: 3.5rem;
+   line-height: 0.8;
+   font-weight: var(--fw-medium);
+}
+
+.statistics__subtitle {
+   font-size: 1.7rem;
+   font-weight: var(--fw-medium);
+   color: var(--clr-black-1);
 }
 
 .chevrons-left-icon:hover {
