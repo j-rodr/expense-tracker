@@ -88,6 +88,10 @@ input {
 
 /* #form */
 
+.form {
+   padding-block-end: 50px;
+}
+
 .form > * + * {
    margin-block-end: 25px;
 }
@@ -161,6 +165,21 @@ input {
 
 /* #Statistics */
 
+.statistics {
+   position: fixed;
+   z-index: 3;
+   bottom: 0;
+   max-width: max-content;
+   padding-block: 35px;
+   padding-inline: 60px 90px;
+   border-top-right-radius: 15px;
+   background-color: var(--clr-black-4);
+}
+
+.statistics > .title {
+   margin-block-end: 25px;
+}
+
 .statistics-btn {
    position: fixed;
    top: calc(100vh - 140px);
@@ -173,16 +192,6 @@ input {
 
 .statistics-btn svg {
    width: 18px;
-}
-
-.statistics {
-   position: fixed;
-   z-index: 3;
-   bottom: 0;
-   max-width: max-content;
-   padding: 40px 60px;
-   border-top-right-radius: 15px;
-   background-color: var(--clr-black-4);
 }
 
 .statistics__container {
@@ -257,14 +266,12 @@ input {
    position: fixed;
    right: 0;
    bottom: 0;
-   min-width: 200px;
-   width: 40%;
-   max-width: 390px;
+   width: max-content;
    max-height: 145px;
    display: flex;
    flex-direction: column;
    justify-content: center;
-   padding-inline-end: 50px;
+   padding-inline: 50px;
    padding-block: 48px 42px;
    border-bottom: 5px solid var(--clr-purple);
    border-top-left-radius: 10px;

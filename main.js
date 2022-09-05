@@ -20,7 +20,7 @@ let editExpenseBtn = document.getElementById("edit-expense-btn")
 let editExpenseTitle = document.getElementById("edit-transaction-title")
 let addExpenseTitle = document.getElementById("add-transaction-title")
 let statsEmptyMessage = document.getElementById("stats-empty")
-let statsContainer = document.getElementById("stats-container")
+let statsCategoriesTitle = document.getElementById("categories-title")
 
 // Statistics toggles
 
@@ -60,6 +60,7 @@ hideAddSectionBtn.addEventListener("click", () => {
    showElement(addExpenseBtn)
    hideElement(editExpenseBtn)
    if (!EXPENSES.length) {
+      hideElement(statsCategoriesTitle)
       showElement(emptyMessage)
    }
 })
@@ -79,6 +80,8 @@ function showElement(element) {
 }
 
 function addSectionToggle(option) {
+   clearAddFields()
+
    let addSection = document.getElementById("add-section")
    let expensesHeaderSection = document.getElementById("expenses-header")
    let expensesSection = document.getElementById("expenses-section")
@@ -101,6 +104,7 @@ function addSectionToggle(option) {
       hideElement(addSection)
 
       if (!EXPENSES.length) {
+         hideElement(statsCategoriesTitle)
          showElement(emptyMessage)
       }
 
@@ -149,25 +153,18 @@ function capitalize(string) {
 
 /* Business logic */
 
-let EXPENSES = [
-   /*{
-      id: 1,
-      category: {
-         name: "category",
-         color: "#000"
-      },
-      name: "Dinner bills",
-      date: "August 3, 2022",
-      amount: 115.99,
-      paymentMethod: "Card"
-   }*/
-]
+let EXPENSES = []
 
 let CATEGORIES = []
+
 let PAYMENT_METHODS = ["Card", "Cash", "Check"]
+
 let COLORS = ["#8678ea", "#21dad7", "#d16eff", "#ffabf6", "#ff007a", "#3866f2"]
 
+hideElement(statsCategoriesTitle)
+
 if (EXPENSES.length) {
+   showElement(statsCategoriesTitle)
    hideElement(emptyMessage)
 }
 
@@ -291,8 +288,10 @@ function addExpense() {
 
    clearAddFields()
    renderSelectOptions()
+   renderHighestCategories()
    calculateTotal()
    hideElement(statsEmptyMessage)
+   showElement(statsCategoriesTitle)
 
    setTimeout(() => {
       alert("The expense was successfully added.")
@@ -311,9 +310,12 @@ function deleteExpense(id) {
 
       expenseCard.addEventListener("animationend", () => {
          renderExpenses()
+         renderHighestCategories()
 
          if (!EXPENSES.length) {
             showElement(emptyMessage)
+            showElement(statsEmptyMessage)
+            hideElement(statsCategoriesTitle)
          }
       })
 
@@ -411,6 +413,7 @@ editExpenseBtn.addEventListener("click", () => {
       }, 100)
 
       renderExpenses()
+      renderHighestCategories()
       renderSelectOptions()
       calculateTotal()
    }
@@ -462,16 +465,83 @@ function calculateTotal() {
 
 /* Create stats element */
 
-function statsElement(amount, percent, category) {
+function statsElement(category) {
    return `
       <div class="statistics__item">
          <div class="statistics__badge" style="background-color: ${category.color}"></div>
          <div class="statistics__data">
-            <p class="statistics__amount">$${amount.toFixed(2)}</p>
+            <p class="statistics__amount">$${category.amount.toFixed(2)}</p>
             <p class="statistics__subtitle">
-               <spent>${percent}% spent on ${category.name}</span>
+               <spent>${category.percent}% spent on ${category.name}</span>
             </p>
          </div>
       </div>
    `
 }
+
+/* Get total expenses according to category */
+
+function getCategoryExpenses(expenses, categories) {
+   let categoryExpenses = {}
+
+   for (let category of categories) categoryExpenses[category.name] = 0
+
+   for (let expense of expenses) categoryExpenses[expense.category.name] += expense.amount
+
+   return categoryExpenses
+}
+
+/* Get top three categories according to total spendings */
+
+function getTopCategories(catExpenses) {
+
+   let categoryExpenses = { ...catExpenses }
+
+   let maxCategories = []
+
+   for (let i = 0; i < 4; i++) {
+      let max = 0
+      let maxCategory = ""
+
+      for (let category in categoryExpenses) {
+         if (categoryExpenses[category] > max) {
+            max = categoryExpenses[category]
+            maxCategory = category
+         }
+
+      }
+
+      if (maxCategory) {
+         maxCategories.push(maxCategory)
+         delete categoryExpenses[maxCategory]
+      }
+   }
+
+   return maxCategories
+
+}
+
+/* Render three highest-spending categories */
+
+function renderHighestCategories() {
+   let categoryExpenses = getCategoryExpenses(EXPENSES, CATEGORIES)
+   let totalExpenses = EXPENSES.reduce((total, current) => total + current.amount, 0)
+   let topThreeCategories = getTopCategories(categoryExpenses)
+
+   let statsContainer = document.getElementById("stats-container")
+
+   statsContainer.innerHTML = ""
+
+   for (let category of topThreeCategories) {
+      let cat = {
+         name: category,
+         amount: categoryExpenses[category],
+         percent: ((categoryExpenses[category] * 100) / totalExpenses).toFixed(2),
+         color: CATEGORIES.filter(cat => cat.name === category)[0].color
+      }
+
+      statsContainer.innerHTML += statsElement(cat)
+   }
+}
+
+
