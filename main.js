@@ -220,18 +220,28 @@ function expenseElement(id, category, name, date, amount, paymentMethod) {
       <div class="expense__edit edit-expense" onclick="editExpense(${id})">
          <img src="./assets/hamburger-menu-icon.svg" alt="Edit icon">
       </div>
-      <div class="expense__group">
-         <p class="expense__category" id="expense-category" style="color: ${category.color}">${category.name}</p>
-         <p class="expense__name" id="expense-name">${name}</p>
-         <p class="expense__date" id="expense-date">${date}</p>
-      </div>
-      <div class="expense__group">
-         <p class="expense__amount" id="expense-amount">$${amount}</p>
-         <p class="expense__payment-method" id="expense-payment-method">Paid with ${paymentMethod.toLowerCase()}</p>
+      <div class="expense__group-wrapper">
+         <div class="expense__group">
+            <p class="expense__category" id="expense-category" style="color: ${category.color}">${category.name}</p>
+            <p class="expense__name" id="expense-name">${name}</p>
+            <p class="expense__date" id="expense-date">${date}</p>
+         </div>
+         <div class="expense__group">
+            <p class="expense__amount" id="expense-amount">$${amount}</p>
+            <p class="expense__payment-method" id="expense-payment-method">Paid with ${paymentMethod.toLowerCase()}</p>
+         </div>
       </div>
       <div class="expense__delete delete-expense" onclick="deleteExpense(${id})">
          <img src="./assets/cross-icon-medium.svg" alt="Delete icon">
       </div>
+      <div class="expense__hidden-buttons">
+      <div class="expense__edit edit-expense" onclick="editExpense(${id})">
+         <img src="./assets/hamburger-menu-icon.svg" alt="Edit icon">
+      </div>
+      <div class="expense__delete delete-expense" onclick="deleteExpense(${id})">
+         <img src="./assets/cross-icon-medium.svg" alt="Delete icon">
+      </div>
+   </div>
    </div>
    `
 }
@@ -472,7 +482,7 @@ function statsElement(category) {
          <div class="statistics__data">
             <p class="statistics__amount">$${category.amount.toFixed(2)}</p>
             <p class="statistics__subtitle">
-               <spent>${category.percent}% spent on ${category.name}</span>
+               <span>${category.percent}% spent on ${category.name}</span>
             </p>
          </div>
       </div>
