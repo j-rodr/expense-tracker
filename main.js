@@ -163,7 +163,8 @@ let EXPENSES = [
    }*/
 ]
 
-let CATEGORIES = []
+
+let CATEGORIES = ["hey, girl", "another", "category", "thomas", "none"]
 let PAYMENT_METHODS = ["Card", "Cash", "Check"]
 let COLORS = ["#8678ea", "#21dad7", "#d16eff", "#ffabf6", "#ff007a", "#3866f2"]
 
@@ -475,3 +476,16 @@ function statsElement(amount, percent, category) {
       </div>
    `
 }
+
+/* Get total expenses according to category */
+
+function getCategoryExpenses(expenses, categories) {
+   let categoryExpenses = {}
+
+   for (let category of categories) categoryExpenses[category] = 0
+
+   for (let expense of expenses) categoryExpenses[expense.category.name] += expense.amount
+
+   return categoryExpenses
+}
+
