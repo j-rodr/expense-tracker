@@ -285,7 +285,7 @@ input {
    background-color: var(--clr-black-5);
 }
 
-.section-header > .statistics-btn {
+.section-header .statistics-btn {
    display: none;
 }
 
@@ -722,31 +722,35 @@ input {
    html {
       font-size: 55%;
    }
-   .btn--primary,
-   .section-header .btn--secondary {
-      width: 100%;
-   }
    main + .statistics-btn {
       display: none;
    }
    .total {
       width: 100%;
    }
-   .section-header > .statistics-btn {
+   .section-header .statistics-btn {
       display: flex;
       position: static;
       margin: 0;
    }
+   .section-header__group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      width: 100%;
+   }
+   .section-header__group > button {
+      flex: 1 1 98px;
+   }
+   #expenses-header {
+      text-align: center;
+   }
    .section-header {
       flex-direction: column;
-      align-items: start;
       gap: 11px;
    }
    .section-header .btn--primary {
       margin-inline-start: 0;
-   }
-   .section-header .btn--secondary {
-      margin-block-end: 10px;
    }
 }
 
@@ -758,7 +762,7 @@ input {
       margin-block-start: 70px;
    }
    .header {
-      padding-block: 25px;
+      padding-block: 45px;
    }
 }
 
@@ -806,6 +810,6 @@ input {
       text-align: start;
    }
    #expenses-header {
-      gap: 18px;
+      gap: 25px;
    }
 }
