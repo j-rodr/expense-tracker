@@ -1,6 +1,6 @@
 # 2. Expense tracker
 
-For my second portfolio project I decided to create an expense-tracking app with vanilla JavaScript and HTML/CSS. I intended to practice my knowledge about CSS animations, DOM manipulation and regular expressions.
+For my second portfolio project I decided to design and create an expense-tracking app with vanilla JavaScript and HTML/CSS. I intended to practice my knowledge about CSS animations, DOM manipulation and regular expressions.
 
 ## How to use
 - To add an expense click `Add transaction`. Insert a name, description, amount, payment method, category and date, and then hit `Save`. 
