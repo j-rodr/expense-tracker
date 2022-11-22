@@ -2,6 +2,8 @@
 
 For my second portfolio project I decided to design and create an expense-tracking app with vanilla JavaScript and HTML/CSS. I intended to practice my knowledge about CSS animations, DOM manipulation and regular expressions.
 
+[Go to project →](https://j-rodr.github.io/expense-tracker/)
+
 ## How to use
 - To add an expense click `Add transaction`. Insert a name, description, amount, payment method, category and date, and then hit `Save`. 
 - In the case there aren't any categories to choose from, create your own by directly writing into the category field and saving the expense. 
