@@ -51,7 +51,7 @@ hideCalloutBtn.addEventListener("click", () => {
    })
 })
 
-// Add senction toggles
+// Add section toggles
 
 addSectionBtn.addEventListener("click", () => addSectionToggle("show"))
 
